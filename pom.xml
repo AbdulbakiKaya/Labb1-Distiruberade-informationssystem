@@ -55,6 +55,20 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.4.54.v20240208</version>
+                <configuration>
+                    <httpConnector>
+                        <port>8080</port>
+                    </httpConnector>
+                    <webApp>
+                        <contextPath>/webshop</contextPath>
+                        <war>${project.basedir}/src/main/webapp</war>
+                    </webApp>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
