@@ -1,7 +1,9 @@
 /Users/dariacheraghi/Labb1-Distiruberade-informationssystem/src/main/java/se/kth/webshop/model/Cart.java
 /Users/dariacheraghi/Labb1-Distiruberade-informationssystem/src/main/java/se/kth/webshop/model/Product.java
+/Users/dariacheraghi/Labb1-Distiruberade-informationssystem/src/main/java/se/kth/webshop/web/LoginServlet.java
 /Users/dariacheraghi/Labb1-Distiruberade-informationssystem/src/main/java/se/kth/webshop/model/CartItem.java
 /Users/dariacheraghi/Labb1-Distiruberade-informationssystem/src/main/java/se/kth/webshop/web/CartServlet.java
+/Users/dariacheraghi/Labb1-Distiruberade-informationssystem/src/main/java/se/kth/webshop/web/LogoutServlet.java
 /Users/dariacheraghi/Labb1-Distiruberade-informationssystem/src/main/java/se/kth/webshop/service/ProductService.java
 /Users/dariacheraghi/Labb1-Distiruberade-informationssystem/src/main/java/se/kth/webshop/service/CartService.java
 /Users/dariacheraghi/Labb1-Distiruberade-informationssystem/src/main/java/se/kth/webshop/web/ProductServlet.java
