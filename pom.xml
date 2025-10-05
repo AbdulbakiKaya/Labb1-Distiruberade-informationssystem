@@ -54,7 +54,7 @@
             <version>3.0.1</version>
         </dependency>
 
-        <!-- H2 (som du hade) -->
+        <!-- H2 -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -69,7 +69,6 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <!-- Viktigt: matcha din JDK -->
                     <release>22</release>
                 </configuration>
             </plugin>
@@ -82,7 +81,6 @@
                 </configuration>
             </plugin>
 
-            <!-- Jetty 11 -->
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
@@ -103,7 +101,7 @@
                         <artifactId>apache-jsp</artifactId>
                         <version>${jetty.version}</version>
                     </dependency>
-                    <!-- JSTL-implementation i serverns loader (nyckeln till din bugg) -->
+                    <!-- JSTL-implementation i serverns loader -->
                     <dependency>
                         <groupId>org.glassfish.web</groupId>
                         <artifactId>jakarta.servlet.jsp.jstl</artifactId>

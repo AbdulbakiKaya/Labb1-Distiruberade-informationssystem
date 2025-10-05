@@ -20,7 +20,6 @@ public class ProductServlet extends HttpServlet {
         List<Product> products = productService.getAllProducts();
         request.setAttribute("products", products);
 
-        // Skicka vidare till JSP
         request.getRequestDispatcher("/products.jsp").forward(request, response);
     }
 }
