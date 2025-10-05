@@ -1,11 +1,11 @@
 package se.kth.webshop.web;
 
+import jakarta.servlet.ServletException;
 import se.kth.webshop.model.Product;
 import se.kth.webshop.service.ProductService;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="se.kth.webshop.model.Cart" %>
 <%@ page import="se.kth.webshop.model.CartItem" %>
+
 <!DOCTYPE html>
 <html lang="sv">
 <head><meta charset="UTF-8"><title>Kundkorg</title></head>

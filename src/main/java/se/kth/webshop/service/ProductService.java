@@ -1,7 +1,11 @@
 package se.kth.webshop.service;
 
 import se.kth.webshop.model.Product;
-import java.util.*;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
+
+import java.util.List;
+import java.util.ArrayList;
 
 public class ProductService {
     private List<Product> products = new ArrayList<>();

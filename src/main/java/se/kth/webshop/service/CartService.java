@@ -2,7 +2,8 @@ package se.kth.webshop.service;
 
 import se.kth.webshop.model.Cart;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
 
 public class CartService {
     public static final String CART_KEY = "CART";

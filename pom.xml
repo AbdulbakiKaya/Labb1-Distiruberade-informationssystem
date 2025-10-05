@@ -9,28 +9,52 @@
     <packaging>war</packaging>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>22</maven.compiler.source>
+        <maven.compiler.target>22</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jetty.version>11.0.26</jetty.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2/</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>false</enabled></snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2/</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>false</enabled></snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
     <dependencies>
-        <!-- Servlet API (Tomcat 9, javax.*). 'provided' = kommer från servern -->
+        <!-- Servlet 5 (Jakarta EE 9.1) – matchar Jetty 11 -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>5.0.0</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- JSTL för enkla taggar i JSP -->
+        <!-- JSTL för Jakarta (API + implementation) -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+            <version>3.0.1</version>
         </dependency>
 
-        <!-- H2 för enkel JDBC-databas (in-memory till att börja med) -->
+        <!-- H2 (som du hade) -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -45,9 +69,11 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <release>17</release>
+                    <!-- Viktigt: matcha din JDK -->
+                    <release>22</release>
                 </configuration>
             </plugin>
+
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.4.0</version>
@@ -55,19 +81,35 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+
+            <!-- Jetty 11 -->
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.4.53.v20231009</version>
+                <version>${jetty.version}</version>
                 <configuration>
                     <httpConnector>
                         <port>8080</port>
                     </httpConnector>
                     <webApp>
                         <contextPath>/webshop</contextPath>
-                        <war>${project.basedir}/src/main/webapp</war>
+                        <!-- INTE peka på src/main/webapp som <war>; lämna tomt så projektets dependencies laddas -->
                     </webApp>
                 </configuration>
+                <dependencies>
+                    <!-- JSP-motorn -->
+                    <dependency>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>apache-jsp</artifactId>
+                        <version>${jetty.version}</version>
+                    </dependency>
+                    <!-- JSTL-implementation i serverns loader (nyckeln till din bugg) -->
+                    <dependency>
+                        <groupId>org.glassfish.web</groupId>
+                        <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+                        <version>3.0.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
