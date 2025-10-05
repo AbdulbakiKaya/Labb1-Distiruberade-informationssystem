@@ -1,36 +1,42 @@
 package se.kth.webshop.model;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Cart {
-    private final Map<Integer, CartItem> items = new LinkedHashMap<>();
+    private final Map<String, CartItem> items = new LinkedHashMap<>();
 
-    public void add(Product p) {
-        items.compute(p.getId(), (id, existing) -> {
-            if (existing == null) return new CartItem(p);
-            existing.increment();
-            return existing;
-        });
+    public void add(Product p, int qty) {
+        if (p == null || qty <= 0) return;
+        CartItem item = items.get(p.getId());
+        if (item == null) {
+            item = new CartItem(p.getId(), p.getName(), p.getPriceSek(), qty);
+            items.put(p.getId(), item);
+        } else {
+            item.addQuantity(qty);
+        }
     }
 
-    public void removeOne(int productId) {
-        CartItem ci = items.get(productId);
-        if (ci == null) return;
-        ci.decrement();
-        if (ci.getQuantity() == 1) { /* behåll 1 kvar, inget mer */ }
+    public void removeAll(String productId) {
+        if (productId != null) {
+            items.remove(productId);
+        }
     }
 
-    public void removeAll(int productId) {
-        items.remove(productId);
+    public void clear() {
+        items.clear();
     }
 
     public Collection<CartItem> getItems() {
         return items.values();
     }
 
-    public double getTotal() {
-        return items.values().stream().mapToDouble(CartItem::getLineTotal).sum();
+    public int getTotalSek() {
+        return items.values().stream().mapToInt(CartItem::getLineTotalSek).sum();
     }
 
-    public boolean isEmpty() { return items.isEmpty(); }
+    public boolean isEmpty() {
+        return items.isEmpty();
+    }
 }

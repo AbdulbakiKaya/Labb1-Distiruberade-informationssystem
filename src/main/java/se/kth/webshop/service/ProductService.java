@@ -1,22 +1,35 @@
 package se.kth.webshop.service;
 
 import se.kth.webshop.model.Product;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ProductService {
-    private List<Product> products = new ArrayList<>();
 
-    public ProductService() {
-        products.add(new Product(1, "Energigelé", 25.0));
-        products.add(new Product(2, "Proteinbar", 30.0));
-        products.add(new Product(3, "Sportdryck", 20.0));
+    private static final Map<String, Product> PRODUCTS = new LinkedHashMap<>();
+
+    static {
+        // Dina tre produkter
+        // ID:n kan du ändra om du vill – de måste bara matcha "productId" i formulären.
+        add(new Product("PRE-1KG", "Pree Workout 1kg", 200));
+        add(new Product("PRO-1KG", "Protein Pulver 1Kg", 100));
+        add(new Product("BAR-16",  "Protein bar 16pack", 250));
     }
 
-    public List<Product> getAllProducts() {
-        return products;
+    private static void add(Product p) {
+        PRODUCTS.put(p.getId(), p);
+    }
+
+    public List<Product> getAll() {
+        return Collections.unmodifiableList(new ArrayList<>(PRODUCTS.values()));
+    }
+
+    public Product getById(String id) {
+        if (id == null) return null;
+        return PRODUCTS.get(id);
     }
 }
