@@ -31,3 +31,4 @@
 <p><a href="${pageContext.request.contextPath}/">Tillbaka</a></p>
 </body>
 </html>
+<p><a href="${pageContext.request.contextPath}/register">Registrera nytt konto</a></p>

@@ -14,7 +14,6 @@ public class ProductService {
 
     static {
         // Dina tre produkter
-        // ID:n kan du ändra om du vill – de måste bara matcha "productId" i formulären.
         add(new Product("PRE-1KG", "Pree Workout 1kg", 200));
         add(new Product("PRO-1KG", "Protein Pulver 1Kg", 100));
         add(new Product("BAR-16",  "Protein bar 16pack", 250));
@@ -31,5 +30,9 @@ public class ProductService {
     public Product getById(String id) {
         if (id == null) return null;
         return PRODUCTS.get(id);
+    }
+
+    public Product findById(String id) {
+        return getById(id);
     }
 }

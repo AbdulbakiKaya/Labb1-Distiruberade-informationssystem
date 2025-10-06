@@ -6,6 +6,9 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import se.kth.webshop.service.UserService;
+import se.kth.webshop.model.Cart;
+
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
@@ -23,7 +26,7 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password"); // TODO: validering om ni vill
 
-        boolean ok = username != null && !username.isBlank();
+        boolean ok = UserService.validate(username, password);
         if (!ok) {
             request.setAttribute("error", "Felaktiga uppgifter");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
@@ -32,6 +35,9 @@ public class LoginServlet extends HttpServlet {
 
         HttpSession session = request.getSession(true);
         session.setAttribute("userName", username);
+        Cart persistentCart = UserService.getOrCreateCart(username);
+        session.setAttribute("cart", persistentCart);
+
 
         String from = request.getParameter("from");
         if (from == null || from.isBlank()) {
