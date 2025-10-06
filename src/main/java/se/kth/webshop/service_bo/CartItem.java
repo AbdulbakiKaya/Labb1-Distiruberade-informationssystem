@@ -1,4 +1,4 @@
-package se.kth.webshop.model;
+package se.kth.webshop.service_bo;
 
 public class CartItem {
     private final String productId;

@@ -1,4 +1,4 @@
-package se.kth.webshop.web;
+package se.kth.webshop.web_ui;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;

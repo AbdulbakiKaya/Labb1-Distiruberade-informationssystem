@@ -1,10 +1,10 @@
-package se.kth.webshop.web;
+package se.kth.webshop.web_ui;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import jakarta.servlet.ServletException;
 import java.io.IOException;
-import se.kth.webshop.service.UserService;
+import se.kth.webshop.service_bo.UserService;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {

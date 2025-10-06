@@ -1,4 +1,4 @@
-package se.kth.webshop.model;
+package se.kth.webshop.service_bo;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;

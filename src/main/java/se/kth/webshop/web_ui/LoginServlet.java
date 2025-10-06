@@ -1,15 +1,17 @@
-package se.kth.webshop.web;
+package se.kth.webshop.web_ui;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import se.kth.webshop.service.UserService;
-import se.kth.webshop.model.Cart;
 
+import se.kth.webshop.service_bo.CartService;
+import se.kth.webshop.service_bo.UserService;
 
+/**
+ * Loggar in användaren, sätter "userName" i session och laddar kundvagn från DB.
+ * Förutsätter att UserService.validate(...) finns och fungerar.
+ */
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
@@ -22,30 +24,24 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        request.setCharacterEncoding("UTF-8");
         String username = request.getParameter("username");
-        String password = request.getParameter("password"); // TODO: validering om ni vill
+        String password = request.getParameter("password");
 
-        boolean ok = UserService.validate(username, password);
-        if (!ok) {
-            request.setAttribute("error", "Felaktiga uppgifter");
+        if (!UserService.validate(username, password)) {
+            request.setAttribute("error", "Fel användarnamn eller lösenord");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
             return;
         }
 
         HttpSession session = request.getSession(true);
         session.setAttribute("userName", username);
-        Cart persistentCart = UserService.getOrCreateCart(username);
-        session.setAttribute("cart", persistentCart);
 
+        new CartService().loadFromDbIntoSession(session, username);
 
         String from = request.getParameter("from");
-        if (from == null || from.isBlank()) {
-            from = request.getContextPath() + "/products";
-        } else if (!from.startsWith(request.getContextPath())) {
+        if (from == null || from.isBlank() || !from.startsWith(request.getContextPath())) {
             from = request.getContextPath() + "/products";
         }
-
         response.sendRedirect(from);
     }
 }
