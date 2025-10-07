@@ -1,11 +1,11 @@
-package se.kth.webshop.service_bo;
+package se.kth.webshop.web_ui;
+public final class ProductInfo {
 
-public class Product {
     private final String id;
     private final String name;
     private final int priceSek;
 
-    public Product(String id, String name, int priceSek) {
+    public ProductInfo(String id, String name, int priceSek) {
         this.id = id;
         this.name = name;
         this.priceSek = priceSek;
@@ -22,4 +22,5 @@ public class Product {
     public int getPriceSek() {
         return priceSek;
     }
+
 }

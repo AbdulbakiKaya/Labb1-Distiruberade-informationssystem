@@ -8,6 +8,8 @@ import java.util.List;
 
 public class ProductDAO {
 
+    public Product[] getAll;
+
     public List<Product> findAll() {
         String sql = "SELECT id, name, price_sek FROM PRODUCTS ORDER BY name";
         List<Product> out = new ArrayList<>();

@@ -2,6 +2,7 @@ package se.kth.webshop.service_bo;
 
 import jakarta.servlet.http.HttpSession;
 import se.kth.webshop.database_db.CartDAO;
+import se.kth.webshop.web_ui.ProductInfo;
 
 /**
  * Session-baserad kundvagn med write-through till DB om användaren är inloggad.
@@ -19,7 +20,7 @@ public class CartService {
         return cart;
     }
 
-    public void addToCart(HttpSession session, Product p, int qty) {
+    public void addToCart(HttpSession session, ProductInfo p, int qty) {
         if (session == null || p == null || qty <= 0) return;
         Cart cart = getOrCreateCart(session);
         cart.add(p, qty);

@@ -4,7 +4,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import se.kth.webshop.service_bo.Cart;
-import se.kth.webshop.service_bo.Product;
 import se.kth.webshop.service_bo.CartService;
 import se.kth.webshop.service_bo.ProductService;
 
@@ -39,7 +38,7 @@ public class CartServlet extends HttpServlet {
             case "add" -> {
                 String productId = param(request, "productId", "id");
                 int qty = parseIntOrDefault(request.getParameter("qty"));
-                Product p = productService.getById(productId);
+                ProductInfo p = productService.getById(productId);
                 if (p != null && qty > 0) {
                     cartService.addToCart(session, p, qty);
                 }

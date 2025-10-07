@@ -1,5 +1,7 @@
 package se.kth.webshop.service_bo;
 
+import se.kth.webshop.web_ui.ProductInfo;
+
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -7,7 +9,7 @@ import java.util.Map;
 public class Cart {
     private final Map<String, CartItem> items = new LinkedHashMap<>();
 
-    public void add(Product p, int qty) {
+    public void add(ProductInfo p, int qty) {
         if (p == null || qty <= 0) return;
         CartItem item = items.get(p.getId());
         if (item == null) {

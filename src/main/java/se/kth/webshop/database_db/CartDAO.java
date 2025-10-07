@@ -2,6 +2,7 @@ package se.kth.webshop.database_db;
 
 import se.kth.webshop.service_bo.Cart;
 import se.kth.webshop.service_bo.Product;
+import se.kth.webshop.web_ui.ProductInfo;
 
 import java.lang.reflect.Method;
 import java.sql.*;
@@ -27,7 +28,7 @@ public class CartDAO {
             ps.setString(1, username);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Product p = new Product(
+                    ProductInfo p = new ProductInfo(
                             rs.getString("id"),
                             rs.getString("name"),
                             rs.getInt("price_sek")

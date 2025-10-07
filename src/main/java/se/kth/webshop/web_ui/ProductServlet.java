@@ -3,8 +3,8 @@ package se.kth.webshop.web_ui;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import se.kth.webshop.service_bo.Product;
 import se.kth.webshop.service_bo.CartService;
+import se.kth.webshop.service_bo.Product;
 import se.kth.webshop.service_bo.ProductService;
 
 import java.io.IOException;
@@ -18,7 +18,6 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Lista produkter
         request.setAttribute("products", productService.getAll());
         request.getRequestDispatcher("/products.jsp").forward(request, response);
     }
@@ -42,8 +41,13 @@ public class ProductServlet extends HttpServlet {
                 if (qty <= 0) qty = 1;
             } catch (Exception ignored) {}
 
-            Product p = productService.getById(productId);
-            cartService.addToCart(session, p, qty);
+            ProductInfo productInfo = productService.getById(productId);
+            ProductInfo product = new ProductInfo(
+                    productInfo.getId(),
+                    productInfo.getName(),
+                    productInfo.getPriceSek()
+            );
+            cartService.addToCart(session, product, qty);
 
             response.sendRedirect(request.getContextPath() + "/cart");
             return;
